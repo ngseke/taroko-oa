@@ -1,4 +1,5 @@
 import { Button } from './Button'
+import { Card } from './Card'
 
 function ContactCardMeta (
   { label, value }: Partial<Record<'label' | 'value', string>>
@@ -25,7 +26,7 @@ export function ContactCard ({ name, job, description, onClickEdit, onClickDelet
   `
 
   return (
-    <div className="rounded-xl border border-neutral-300 p-4">
+    <Card>
       <div className="grid grid-cols-[1fr,auto] grid-rows-[1fr,auto] gap-4 md:grid-cols-[auto,1fr]">
         <div className="flex items-center gap-2">
           <img src={avatarUrl} alt="Avatar" className="h-8 w-8 rounded-full" />
@@ -42,6 +43,6 @@ export function ContactCard ({ name, job, description, onClickEdit, onClickDelet
           <ContactCardMeta label="Description" value={description} />
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
