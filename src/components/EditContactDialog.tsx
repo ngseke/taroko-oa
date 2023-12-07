@@ -20,21 +20,22 @@ export function EditContactDialog ({
     contactDraft,
     setContactDraft,
     initiateContactDraft,
+    resetContactDraft,
   } = useContactDraft()
 
   useEffect(() => {
     if (!contactId) {
-      setContactDraft(null)
+      resetContactDraft()
       return
     }
 
     fetchContact(contactId).then(initiateContactDraft)
-  }, [contactId, initiateContactDraft, setContactDraft])
+  }, [contactId, initiateContactDraft, resetContactDraft])
 
   const { submit, isSubmitting } = useEditContact()
 
   async function handleSubmit () {
-    if (!contactId || !contactDraft) {
+    if (!contactId) {
       throw new Error('Missing `contactId` or `contactDraft`!')
     }
 

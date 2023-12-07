@@ -1,9 +1,16 @@
 import { useCallback, useState } from 'react'
 import { type Contact, type ContactDraft } from '../types/Contact'
 
+const generateDefaultDraft = (): ContactDraft => ({
+  firstName: '',
+  lastName: '',
+  job: '',
+  description: '',
+})
+
 export function useContactDraft () {
   const [contactDraft, setContactDraft] =
-    useState<ContactDraft | null>(null)
+    useState<ContactDraft>(generateDefaultDraft())
 
   const initiateContactDraft = useCallback((contact: Contact) => {
     const newDraft: ContactDraft = {
@@ -15,9 +22,14 @@ export function useContactDraft () {
     setContactDraft(newDraft)
   }, [])
 
+  const resetContactDraft = useCallback(() => {
+    setContactDraft(generateDefaultDraft())
+  }, [])
+
   return {
     contactDraft,
     setContactDraft,
     initiateContactDraft,
+    resetContactDraft,
   }
 }
