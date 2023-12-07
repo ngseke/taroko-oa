@@ -7,6 +7,7 @@ module.exports = {
     'standard-with-typescript',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
+    'plugin:tailwindcss/recommended',
   ],
   overrides: [
     {
@@ -29,6 +30,7 @@ module.exports = {
   plugins: [
     'react',
     'react-hooks',
+    'tailwindcss',
   ],
   settings: {
     react: {
