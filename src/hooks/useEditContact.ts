@@ -7,10 +7,11 @@ export function useEditContact () {
 
   async function submit (id: number, draft: ContactDraft) {
     setIsSubmitting(true)
-
-    await updateContact(id, draft)
-
-    setIsSubmitting(false)
+    try {
+      await updateContact(id, draft)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return {

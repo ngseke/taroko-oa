@@ -8,6 +8,7 @@ export interface ContactFormProps {
   onSubmit: () => void
   onCancel: () => void
   loading?: boolean
+  disabled?: boolean
 }
 
 export function ContactForm ({
@@ -16,6 +17,7 @@ export function ContactForm ({
   onSubmit,
   onCancel,
   loading,
+  disabled,
 }: ContactFormProps) {
   function handleChange (field: keyof ContactDraft) {
     return function (newValue: string) {
@@ -27,7 +29,9 @@ export function ContactForm ({
   const isSomeFiledEmpty = Object.values(draft)
     .some(value => !value.trim())
 
-  const isSubmitButtonDisabled = Boolean(loading) || isSomeFiledEmpty
+  const isFieldDisabled = Boolean(loading) || Boolean(disabled)
+
+  const isSubmitButtonDisabled = Boolean(loading) || Boolean(disabled) || isSomeFiledEmpty
 
   return (
     <form className="grid grid-cols-2 gap-4" onSubmit={onSubmit}>
@@ -36,7 +40,7 @@ export function ContactForm ({
           label="First Name"
           value={draft.firstName}
           onChange={handleChange('firstName')}
-          disabled={loading}
+          disabled={isFieldDisabled}
         />
       </div>
 
@@ -45,7 +49,7 @@ export function ContactForm ({
           label="Last Name"
           value={draft.lastName}
           onChange={handleChange('lastName')}
-          disabled={loading}
+          disabled={isFieldDisabled}
         />
       </div>
 
@@ -54,7 +58,7 @@ export function ContactForm ({
           label="Job"
           value={draft.job}
           onChange={handleChange('job')}
-          disabled={loading}
+          disabled={isFieldDisabled}
         />
       </div>
 
@@ -63,7 +67,7 @@ export function ContactForm ({
           label="Description"
           value={draft.description}
           onChange={handleChange('description')}
-          disabled={loading}
+          disabled={isFieldDisabled}
         />
       </div>
 
