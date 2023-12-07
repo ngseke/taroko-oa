@@ -30,6 +30,11 @@ module.exports = {
     'react',
     'react-hooks',
   ],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
     '@typescript-eslint/comma-dangle': ['error', {
       arrays: 'always-multiline',
