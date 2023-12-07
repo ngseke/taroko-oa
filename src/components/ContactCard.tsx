@@ -31,7 +31,7 @@ export function ContactCard ({ name, job, description, onClickEdit, onClickDelet
       <div className="grid grid-cols-[1fr,auto] grid-rows-[1fr,auto] gap-4">
         <div className="flex items-center gap-2">
           <img src={avatarUrl} alt="Avatar" className="h-10 w-10 rounded-full bg-neutral-200" />
-          <span className="font-bold">{name}</span>
+          <span className="overflow-hidden text-ellipsis font-bold">{name}</span>
         </div>
 
         <div className="flex flex-none flex-col gap-2 md:row-span-2">
