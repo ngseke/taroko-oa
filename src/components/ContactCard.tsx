@@ -1,12 +1,13 @@
 import { Button } from './Button'
 import { Card } from './Card'
+import { LabelText } from './LabelText'
 
 function ContactCardMeta (
   { label, value }: Partial<Record<'label' | 'value', string>>
 ) {
   return (
     <div className="flex gap-2 text-sm">
-      <span className="font-medium text-neutral-600">{label}: </span>
+      <LabelText>{label}: </LabelText>
       <span>{value}</span>
     </div>
   )
