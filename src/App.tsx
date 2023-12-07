@@ -8,6 +8,7 @@ import { ContactCards } from './components/ContactCards'
 import { useDeleteContact } from './hooks/useDeleteContact'
 import { AddContactDialog } from './components/AddContactDialog'
 import { ErrorMessage } from './components/ErrorMessage'
+import { SortIconButton } from './components/SortIconButton'
 
 export default function App () {
   const [isAddDialogOpened, setIsAddDialogOpened] = useState(false)
@@ -20,7 +21,7 @@ export default function App () {
 
   const [activeContactId, setActiveContactId] = useState<number | null>(null)
 
-  const { contacts, isLoadingContacts, contactsError, mutateContacts } = useContacts()
+  const { sortedContacts, sortOrder, toggleSortOrder, isLoadingContacts, contactsError, mutateContacts } = useContacts()
 
   const { deleteContact, isDeletingContacts, deleteContactError } = useDeleteContact()
 
@@ -36,13 +37,21 @@ export default function App () {
       />
 
       <main className="flex flex-col items-center gap-6">
-        <h2 className="text-center text-3xl font-bold">Contacts</h2>
+        <div className="relative flex w-full justify-center gap-2">
+          <h2 className="text-center text-3xl font-bold">Contacts</h2>
+          <div className="sm:absolute sm:right-0 sm:top-1/2 sm:-translate-y-1/2">
+            <SortIconButton
+              sortOrder={sortOrder}
+              onClick={toggleSortOrder}
+            />
+          </div>
+        </div>
         {<ErrorMessage error={contactsError} />}
         {<ErrorMessage error={deleteContactError} />}
         {
-          contacts && !contactsError &&
+          sortedContacts && !contactsError &&
             <ContactCards
-              contacts={contacts}
+              contacts={sortedContacts}
               disabled={isLoadingContacts || isDeletingContacts}
               onClickEdit={setActiveContactId}
               onClickDelete={handleClickDelete}
