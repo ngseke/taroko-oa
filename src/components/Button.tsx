@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { type ReactNode } from 'react'
+import { LoadingIcon } from './LoadingIcon'
 
 export interface ButtonProps {
   children?: ReactNode
@@ -7,6 +8,7 @@ export interface ButtonProps {
   color?: 'default' | 'danger'
   type?: 'button' | 'submit'
   disabled?: boolean
+  loading?: boolean
 }
 
 export function Button ({
@@ -15,13 +17,14 @@ export function Button ({
   color = 'default',
   type = 'button',
   disabled,
+  loading,
 }: ButtonProps) {
   return (
     <button
       type={type}
       onClick={onClick}
       className={clsx(
-        'inline-flex min-w-[6rem] justify-center rounded-xl px-4 py-1 text-sm font-medium uppercase transition-all hover:shadow-lg disabled:opacity-50',
+        'inline-flex min-w-[6rem] items-center justify-center whitespace-nowrap rounded-xl px-4 py-1 text-sm font-medium uppercase transition-all hover:shadow-lg disabled:opacity-50',
         {
           'bg-neutral-300 text-neutral-800': color === 'default',
           'bg-rose-300 text-red-800': color === 'danger',
@@ -29,7 +32,7 @@ export function Button ({
       )}
       disabled={disabled}
     >
-      {children}
+      {loading ? <LoadingIcon /> : children}
     </button>
   )
 }
