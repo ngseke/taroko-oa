@@ -2,7 +2,9 @@ import { Dialog } from './Dialog'
 import { ContactForm } from './ContactForm'
 import { useContactDraft } from '../hooks/useContactDraft'
 import { useAddContact } from '../hooks/useAddContact'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { extractErrorMessage } from '../modules/extractErrorMessage'
+import { ErrorMessage } from './ErrorMessage'
 
 export interface AddContactDialogProps {
   open: boolean
@@ -24,16 +26,25 @@ export function AddContactDialog ({
   }, [open, resetContactDraft])
 
   const { submit, isSubmitting } = useAddContact()
+  const [submitError, setSubmitError] = useState<string>()
 
   async function handleSubmit () {
-    await submit(contactDraft)
+    try {
+      await submit(contactDraft)
 
-    onClose?.()
-    onSuccess?.()
+      onClose?.()
+      onSuccess?.()
+    } catch (err) {
+      setSubmitError(extractErrorMessage(err))
+    }
   }
 
   return (
     <Dialog title="Add Contact" open={open} onClose={onClose}>
+      {
+        submitError &&
+          <ErrorMessage>{submitError}</ErrorMessage>
+      }
       {
         contactDraft &&
           <ContactForm

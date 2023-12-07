@@ -7,10 +7,11 @@ export function useAddContact () {
 
   async function submit (draft: ContactDraft) {
     setIsSubmitting(true)
-
-    await createContact(draft)
-
-    setIsSubmitting(false)
+    try {
+      await createContact(draft)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return {
