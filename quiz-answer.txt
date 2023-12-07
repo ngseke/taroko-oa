@@ -1,0 +1,3 @@
+Code 1 should be more efficient because it uses a technique called 'event delegation'. This way, React doesn't have to create too much event listeners. With event bubbling, we can centrally handle those events at the parent element.
+
+On the other hand,, Code 2 might be more intuitive and straightforward. So the better way depends on the coding convention of the team.
