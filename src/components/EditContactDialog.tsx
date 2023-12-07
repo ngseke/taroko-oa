@@ -6,9 +6,9 @@ import { useEffect } from 'react'
 import { useEditContact } from '../hooks/useEditContact'
 
 export interface EditContactDialogProps {
-  contactId?: number | null
-  onClose?: () => void
-  onSuccess?: () => void
+  contactId: number | null
+  onClose: () => void
+  onSuccess: () => void
 }
 
 export function EditContactDialog ({
@@ -45,7 +45,11 @@ export function EditContactDialog ({
   }
 
   return (
-    <Dialog title="Edit Contact" open={Boolean(contactId)}>
+    <Dialog
+      title="Edit Contact"
+      open={Boolean(contactId)}
+      onClose={onClose}
+    >
       {
         contactDraft &&
           <ContactForm
