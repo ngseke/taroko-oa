@@ -24,6 +24,11 @@ export function ContactForm ({
     }
   }
 
+  const isSomeFiledEmpty = Object.values(draft)
+    .some(value => !value.trim())
+
+  const isSubmitButtonDisabled = Boolean(loading) || isSomeFiledEmpty
+
   return (
     <form className="grid grid-cols-2 gap-4" onSubmit={onSubmit}>
       <div className="col-span-2 sm:col-span-1">
@@ -66,7 +71,7 @@ export function ContactForm ({
         <Button onClick={onCancel} disabled={loading}>Cancel</Button>
         <Button
           type="submit"
-          disabled={loading}
+          disabled={isSubmitButtonDisabled}
           loading={loading}
         >Submit</Button>
       </div>

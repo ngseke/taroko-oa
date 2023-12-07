@@ -24,7 +24,7 @@ export function Button ({
       type={type}
       onClick={onClick}
       className={clsx(
-        'inline-flex min-w-[6rem] items-center justify-center whitespace-nowrap rounded-xl px-4 py-1 text-sm font-medium uppercase transition-all hover:shadow-lg disabled:opacity-50',
+        'inline-flex min-w-[6rem] items-center justify-center whitespace-nowrap rounded-xl px-4 py-1 text-sm font-medium uppercase transition-all enabled:hover:shadow-lg disabled:opacity-50',
         {
           'bg-neutral-300 text-neutral-800': color === 'default',
           'bg-rose-300 text-red-800': color === 'danger',
