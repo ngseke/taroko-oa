@@ -21,6 +21,10 @@ module.exports = {
         sourceType: 'script',
       },
     },
+    {
+      files: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react'],
+    },
   ],
   parserOptions: {
     ecmaVersion: 'latest',
