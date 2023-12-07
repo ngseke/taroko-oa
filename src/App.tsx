@@ -5,9 +5,10 @@ import { EditContactDialog } from './components/EditContactDialog'
 import { Navbar } from './components/Navbar'
 import { useContacts } from './hooks/useContacts'
 import { ContactCards } from './components/ContactCards'
-import { LoadingIcon } from './components/LoadingIcon'
 import { useDeleteContact } from './hooks/useDeleteContact'
 import { AddContactDialog } from './components/AddContactDialog'
+import { ErrorMessage } from './components/ErrorMessage'
+import { extractErrorMessage } from './modules/extractErrorMessage'
 
 export default function App () {
   const [isAddDialogOpened, setIsAddDialogOpened] = useState(false)
@@ -20,7 +21,7 @@ export default function App () {
 
   const [activeContactId, setActiveContactId] = useState<number | null>(null)
 
-  const { contacts, isLoadingContacts, mutateContacts } = useContacts()
+  const { contacts, isLoadingContacts, contactsError, mutateContacts } = useContacts()
 
   const { deleteContact, isDeletingContacts } = useDeleteContact()
 
@@ -37,16 +38,18 @@ export default function App () {
 
       <main className="flex flex-col items-center gap-6">
         <h2 className="text-center text-3xl font-bold">Contacts</h2>
-
         {
-          (contacts)
-            ? <ContactCards
-                contacts={contacts}
-                disabled={isLoadingContacts || isDeletingContacts}
-                onClickEdit={setActiveContactId}
-                onClickDelete={handleClickDelete}
-              />
-            : <span><LoadingIcon /></span>
+          contactsError &&
+            <ErrorMessage>{extractErrorMessage(contactsError)}</ErrorMessage>
+        }
+        {
+          contacts && !contactsError &&
+            <ContactCards
+              contacts={contacts}
+              disabled={isLoadingContacts || isDeletingContacts}
+              onClickEdit={setActiveContactId}
+              onClickDelete={handleClickDelete}
+            />
         }
       </main>
 
