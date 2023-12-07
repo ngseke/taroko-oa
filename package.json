@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "slidev": "slidev",
-    "slidev:export": "slidev export"
+    "slidev:export": "slidev export --dark"
   },
   "engines": {
     "node": ">=18",
