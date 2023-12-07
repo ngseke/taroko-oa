@@ -12,7 +12,7 @@ export function ContactCards ({
   onClickEdit,
   onClickDelete,
 }: ContactCardsProps) {
-  return (
+  return <>
     <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
       {
         contacts?.map(contact => (
@@ -27,5 +27,9 @@ export function ContactCards ({
         ))
       }
     </div>
-  )
+    {
+      !contacts?.length &&
+        <div className="text-sm italic text-neutral-500">No Contact</div>
+    }
+  </>
 }
