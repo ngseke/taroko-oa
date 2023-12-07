@@ -1,8 +1,10 @@
 export function extractErrorMessage (error: any) {
   try {
     return (
-      error?.response?.data?.message ?? error?.message
-    ) as string | undefined
+      error?.response?.data?.message ??
+      error?.message ??
+      String(error)
+    ) as string
   } catch (err) {
   }
 }

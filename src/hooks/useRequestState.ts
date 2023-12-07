@@ -8,8 +8,11 @@ export function useRequestState () {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<any>()
 
+  const clearError = useCallback(() => setError(undefined), [])
+
   const execute = useCallback(async (callback: Callback) => {
     setIsSubmitting(true)
+    clearError()
     try {
       await callback()
     } catch (err) {
@@ -18,9 +21,7 @@ export function useRequestState () {
     } finally {
       setIsSubmitting(false)
     }
-  }, [])
-
-  const clearError = useCallback(() => setError(undefined), [])
+  }, [clearError])
 
   return {
     execute,

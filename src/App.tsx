@@ -22,7 +22,7 @@ export default function App () {
 
   const { contacts, isLoadingContacts, contactsError, mutateContacts } = useContacts()
 
-  const { deleteContact, isDeletingContacts } = useDeleteContact()
+  const { deleteContact, isDeletingContacts, deleteContactError } = useDeleteContact()
 
   async function handleClickDelete (id: number) {
     await deleteContact(id)
@@ -38,6 +38,7 @@ export default function App () {
       <main className="flex flex-col items-center gap-6">
         <h2 className="text-center text-3xl font-bold">Contacts</h2>
         {<ErrorMessage error={contactsError} />}
+        {<ErrorMessage error={deleteContactError} />}
         {
           contacts && !contactsError &&
             <ContactCards

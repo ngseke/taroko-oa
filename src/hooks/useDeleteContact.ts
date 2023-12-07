@@ -1,17 +1,20 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { removeContact } from '../modules/apis'
+import { useRequestState } from './useRequestState'
 
 export function useDeleteContact () {
-  const [isDeletingContacts, setIsDeletingContacts] = useState(false)
+  const { execute, isSubmitting, error, clearError } = useRequestState()
 
   const deleteContact = useCallback(async (id: number) => {
-    setIsDeletingContacts(true)
-    await removeContact(id)
-    setIsDeletingContacts(false)
-  }, [])
+    await execute(async () => {
+      await removeContact(id)
+    })
+  }, [execute])
 
   return {
-    isDeletingContacts,
+    isDeletingContacts: isSubmitting,
     deleteContact,
+    deleteContactError: error,
+    clearDeleteContactError: clearError,
   }
 }
