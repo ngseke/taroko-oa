@@ -6,6 +6,7 @@ export interface ButtonProps {
   onClick?: () => void
   color?: 'default' | 'danger'
   type?: 'button' | 'submit'
+  disabled?: boolean
 }
 
 export function Button ({
@@ -13,18 +14,20 @@ export function Button ({
   onClick,
   color = 'default',
   type = 'button',
+  disabled,
 }: ButtonProps) {
   return (
     <button
       type={type}
       onClick={onClick}
       className={clsx(
-        'inline-flex min-w-[6rem] justify-center rounded-xl px-4 py-1 text-sm font-medium uppercase transition-all hover:shadow-lg',
+        'inline-flex min-w-[6rem] justify-center rounded-xl px-4 py-1 text-sm font-medium uppercase transition-all hover:shadow-lg disabled:opacity-50',
         {
           'bg-neutral-300 text-neutral-800': color === 'default',
           'bg-rose-300 text-red-800': color === 'danger',
         }
       )}
+      disabled={disabled}
     >
       {children}
     </button>
