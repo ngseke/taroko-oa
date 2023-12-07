@@ -8,8 +8,17 @@ import { ContactCards } from './components/ContactCards'
 import { LoadingIcon } from './components/LoadingIcon'
 import { useDeleteContact } from './hooks/useDeleteContact'
 import clsx from 'clsx'
+import { AddContactDialog } from './components/AddContactDialog'
 
 export default function App () {
+  const [isAddDialogOpened, setIsAddDialogOpened] = useState(false)
+  function openAddDialog () {
+    setIsAddDialogOpened(true)
+  }
+  function closeAddDialog () {
+    setIsAddDialogOpened(false)
+  }
+
   const [activeContactId, setActiveContactId] = useState<number | null>(null)
 
   const { contacts, isLoadingContacts, mutateContacts } = useContacts()
@@ -24,7 +33,7 @@ export default function App () {
   return (
     <div className="container my-6 px-4 pt-14">
       <Navbar
-        actions={<Button>Add Contact</Button>}
+        actions={<Button onClick={openAddDialog}>Add Contact</Button>}
       />
 
       <main
@@ -51,6 +60,11 @@ export default function App () {
       <EditContactDialog
         contactId={activeContactId}
         onClose={() => setActiveContactId(null)}
+        onSuccess={mutateContacts}
+      />
+      <AddContactDialog
+        open={isAddDialogOpened}
+        onClose={closeAddDialog}
         onSuccess={mutateContacts}
       />
     </div>
