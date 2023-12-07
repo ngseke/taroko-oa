@@ -9,6 +9,7 @@ import { useDeleteContact } from './hooks/useDeleteContact'
 import { AddContactDialog } from './components/AddContactDialog'
 import { ErrorMessage } from './components/ErrorMessage'
 import { SortIconButton } from './components/SortIconButton'
+import { type ToastType, Toasts, useToast } from './components/Toasts'
 
 export default function App () {
   const [isAddDialogOpened, setIsAddDialogOpened] = useState(false)
@@ -27,7 +28,16 @@ export default function App () {
 
   async function handleClickDelete (id: number) {
     await deleteContact(id)
-    await mutateContacts()
+    handleSuccess('delete')()
+  }
+
+  const { toasts, pushToast } = useToast()
+
+  function handleSuccess (type: ToastType) {
+    return function () {
+      pushToast(type)
+      mutateContacts()
+    }
   }
 
   return (
@@ -62,13 +72,15 @@ export default function App () {
       <EditContactDialog
         contactId={activeContactId}
         onClose={() => setActiveContactId(null)}
-        onSuccess={mutateContacts}
+        onSuccess={handleSuccess('edit')}
       />
       <AddContactDialog
         open={isAddDialogOpened}
         onClose={closeAddDialog}
-        onSuccess={mutateContacts}
+        onSuccess={handleSuccess('add')}
       />
+
+      <Toasts toasts={toasts} />
     </div>
   )
 }
