@@ -21,7 +21,7 @@ export function Navbar ({ actions }: NavbarProps) {
   }
 
   return (
-    <nav className="fixed left-0 top-0 h-14 w-full border-b border-neutral-200">
+    <nav className="fixed left-0 top-0 h-14 w-full border-b border-neutral-200 bg-neutral-100">
       <div className="container flex h-full items-center justify-center px-4 sm:justify-between">
         <div className="absolute left-4 top-1/2 block -translate-y-1/2 sm:hidden">
           <IconButton onClick={open}>
