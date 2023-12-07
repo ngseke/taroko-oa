@@ -34,7 +34,7 @@ export function ContactForm ({
   const isSubmitButtonDisabled = Boolean(loading) || Boolean(disabled) || isSomeFiledEmpty
 
   return (
-    <form className="grid grid-cols-2 gap-4" onSubmit={onSubmit}>
+    <form className="grid grid-cols-2 gap-4">
       <div className="col-span-2 sm:col-span-1">
         <Input
           label="First Name"
@@ -74,7 +74,7 @@ export function ContactForm ({
       <div className="col-span-2 flex justify-end gap-2">
         <Button onClick={onCancel} disabled={loading}>Cancel</Button>
         <Button
-          type="submit"
+          onClick={onSubmit}
           disabled={isSubmitButtonDisabled}
           loading={loading}
         >Submit</Button>

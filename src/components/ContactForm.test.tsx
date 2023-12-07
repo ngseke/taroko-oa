@@ -15,6 +15,12 @@ describe('ContactForm component', () => {
     onCancel: mockOnCancel,
   }
 
+  beforeEach(() => {
+    mockOnChangeDraft.mockReset()
+    mockOnSubmit.mockReset()
+    mockOnCancel.mockReset()
+  })
+
   test('renders all form elements', () => {
     const mockDraft = { firstName: 'firstName', lastName: 'lastName', job: 'job', description: 'description' }
     render(<ContactForm {...mockProps} draft={mockDraft} />)
@@ -91,5 +97,15 @@ describe('ContactForm component', () => {
 
     rerender(<ContactForm {...mockProps} draft={{ firstName: 'A', lastName: 'B', job: 'C', description: 'D' }} />)
     expect(screen.getByText('Submit')).toBeEnabled()
+  })
+
+  test('submit and cancel', async () => {
+    render(<ContactForm {...mockProps} draft={{ firstName: 'A', lastName: 'B', job: 'C', description: 'D' }} />)
+
+    await userEvent.click(screen.getByText('Submit'))
+    expect(mockOnSubmit).toHaveBeenCalledOnce()
+
+    await userEvent.click(screen.getByText('Cancel'))
+    expect(mockOnCancel).toHaveBeenCalledOnce()
   })
 })
