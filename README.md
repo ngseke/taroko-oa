@@ -1,5 +1,10 @@
 # Taroko Contact List
 
+## Demo
+
+https://ngseke.github.io/taroko-oa/
+
+(You will need to start the [API server](https://github.com/resumecompanion/taroko_server) locally on port 3000 first.)
 
 ## Installation
 
@@ -30,6 +35,11 @@ pnpm run dev
 ## Build
 
 ```sh
+pnpm run test
 pnpm run lint
 pnpm run build
 ```
+
+## Quiz Answer
+
+https://github.com/ngseke/taroko-oa/blob/main/quiz-answer.txt
