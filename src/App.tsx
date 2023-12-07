@@ -31,7 +31,7 @@ export default function App () {
   }
 
   return (
-    <div className="container my-6 px-4 pt-14">
+    <div className="container my-6 max-w-[1000px] px-4 pt-14">
       <Navbar
         actions={<Button onClick={openAddDialog}>Add Contact</Button>}
       />
