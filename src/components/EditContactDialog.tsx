@@ -2,8 +2,9 @@ import { Dialog } from './Dialog'
 import { ContactForm } from './ContactForm'
 import { useContactDraft } from '../hooks/useContactDraft'
 import { fetchContact } from '../modules/apis'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useEditContact } from '../hooks/useEditContact'
+import { LoadingIcon } from './LoadingIcon'
 
 export interface EditContactDialogProps {
   contactId: number | null
@@ -23,13 +24,20 @@ export function EditContactDialog ({
     resetContactDraft,
   } = useContactDraft()
 
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     if (!contactId) {
       resetContactDraft()
       return
     }
 
-    fetchContact(contactId).then(initiateContactDraft)
+    ;(async () => {
+      setIsLoading(true)
+      const contact = await fetchContact(contactId)
+      initiateContactDraft(contact)
+      setIsLoading(false)
+    })()
   }, [contactId, initiateContactDraft, resetContactDraft])
 
   const { submit, isSubmitting } = useEditContact()
@@ -52,14 +60,15 @@ export function EditContactDialog ({
       onClose={onClose}
     >
       {
-        contactDraft &&
-          <ContactForm
-            draft={contactDraft}
-            onChangeDraft={setContactDraft}
-            onSubmit={handleSubmit}
-            onCancel={() => onClose?.()}
-            loading={isSubmitting}
-          />
+        isLoading
+          ? <LoadingIcon />
+          : <ContactForm
+              draft={contactDraft}
+              onChangeDraft={setContactDraft}
+              onSubmit={handleSubmit}
+              onCancel={() => onClose?.()}
+              loading={isSubmitting}
+            />
       }
     </Dialog>
   )
