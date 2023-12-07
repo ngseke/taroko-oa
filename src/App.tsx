@@ -38,10 +38,7 @@ export default function App () {
 
       <main className="flex flex-col items-center gap-6">
         <h2 className="text-center text-3xl font-bold">Contacts</h2>
-        {
-          contactsError &&
-            <ErrorMessage>{extractErrorMessage(contactsError)}</ErrorMessage>
-        }
+        {<ErrorMessage>{extractErrorMessage(contactsError)}</ErrorMessage>}
         {
           contacts && !contactsError &&
             <ContactCards

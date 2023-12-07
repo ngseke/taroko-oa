@@ -41,10 +41,7 @@ export function AddContactDialog ({
 
   return (
     <Dialog title="Add Contact" open={open} onClose={onClose}>
-      {
-        submitError &&
-          <ErrorMessage>{submitError}</ErrorMessage>
-      }
+      {<ErrorMessage>{submitError}</ErrorMessage>}
       {
         contactDraft &&
           <ContactForm

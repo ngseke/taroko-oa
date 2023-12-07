@@ -69,14 +69,8 @@ export function EditContactDialog ({
       open={Boolean(contactId)}
       onClose={onClose}
     >
-      {
-        contactError &&
-          <ErrorMessage>{contactError}</ErrorMessage>
-      }
-      {
-        submitError &&
-          <ErrorMessage>{submitError}</ErrorMessage>
-      }
+      {<ErrorMessage>{contactError}</ErrorMessage>}
+      {<ErrorMessage>{submitError}</ErrorMessage>}
 
       {
         isLoading
