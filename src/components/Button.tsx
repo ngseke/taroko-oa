@@ -5,12 +5,18 @@ export interface ButtonProps {
   children?: ReactNode
   onClick?: () => void
   color?: 'default' | 'danger'
+  type?: 'button' | 'submit'
 }
 
-export function Button ({ children, onClick, color = 'default' }: ButtonProps) {
+export function Button ({
+  children,
+  onClick,
+  color = 'default',
+  type = 'button',
+}: ButtonProps) {
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       className={clsx(
         'inline-flex min-w-[6rem] justify-center rounded-xl px-4 py-1 text-sm font-medium uppercase transition-all hover:shadow-lg',
