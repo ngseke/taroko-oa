@@ -7,7 +7,6 @@ import { useContacts } from './hooks/useContacts'
 import { ContactCards } from './components/ContactCards'
 import { LoadingIcon } from './components/LoadingIcon'
 import { useDeleteContact } from './hooks/useDeleteContact'
-import clsx from 'clsx'
 import { AddContactDialog } from './components/AddContactDialog'
 
 export default function App () {
@@ -36,20 +35,14 @@ export default function App () {
         actions={<Button onClick={openAddDialog}>Add Contact</Button>}
       />
 
-      <main
-        className={clsx(
-          'flex flex-col items-center gap-6',
-          {
-            'opacity-50': isLoadingContacts || isDeletingContacts,
-          }
-        )}
-      >
+      <main className="flex flex-col items-center gap-6">
         <h2 className="text-center text-3xl font-bold">Contacts</h2>
 
         {
           (contacts)
             ? <ContactCards
                 contacts={contacts}
+                disabled={isLoadingContacts || isDeletingContacts}
                 onClickEdit={setActiveContactId}
                 onClickDelete={handleClickDelete}
               />

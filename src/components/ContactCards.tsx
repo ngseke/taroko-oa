@@ -1,19 +1,27 @@
+import clsx from 'clsx'
 import { type Contact } from '../types/Contact'
 import { ContactCard } from './ContactCard'
 
 export interface ContactCardsProps {
   contacts?: Contact[]
+  disabled?: boolean
   onClickEdit?: (id: number) => void
   onClickDelete?: (id: number) => void
 }
 
 export function ContactCards ({
   contacts,
+  disabled,
   onClickEdit,
   onClickDelete,
 }: ContactCardsProps) {
   return <>
-    <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+    <div
+      className={clsx(
+        'grid w-full grid-cols-1 gap-4 md:grid-cols-2',
+        { 'opacity-50 pointer-events-none': disabled }
+      )}
+    >
       {
         contacts?.map(contact => (
           <ContactCard
