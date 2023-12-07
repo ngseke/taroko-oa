@@ -23,14 +23,14 @@ export interface ContactCardProps {
 }
 
 export function ContactCard ({ name, job, description, onClickEdit, onClickDelete }: ContactCardProps) {
-  const avatarUrl = `https://api.dicebear.com/7.x/adventurer-neutral/svg?seed=${name}
+  const avatarUrl = `https://api.dicebear.com/7.x/open-peeps/svg?seed=${name}
   `
 
   return (
     <Card>
-      <div className="grid grid-cols-[1fr,auto] grid-rows-[1fr,auto] gap-4 md:grid-cols-[auto,1fr]">
+      <div className="grid grid-cols-[1fr,auto] grid-rows-[1fr,auto] gap-4">
         <div className="flex items-center gap-2">
-          <img src={avatarUrl} alt="Avatar" className="h-8 w-8 rounded-full" />
+          <img src={avatarUrl} alt="Avatar" className="h-10 w-10 rounded-full bg-neutral-200" />
           <span className="font-bold">{name}</span>
         </div>
 
