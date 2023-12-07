@@ -1,21 +1,20 @@
 import { type ContactDraft } from '../types/Contact'
 import { createContact } from '../modules/apis'
-import { useState } from 'react'
+import { useRequestState } from './useRequestState'
 
 export function useAddContact () {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { execute, isSubmitting, error, clearError } = useRequestState()
 
   async function submit (draft: ContactDraft) {
-    setIsSubmitting(true)
-    try {
+    await execute(async () => {
       await createContact(draft)
-    } finally {
-      setIsSubmitting(false)
-    }
+    })
   }
 
   return {
     submit,
     isSubmitting,
+    submitError: error,
+    clearSubmitError: clearError,
   }
 }

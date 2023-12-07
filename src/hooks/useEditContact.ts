@@ -1,21 +1,21 @@
 import { type ContactDraft } from '../types/Contact'
 import { updateContact } from '../modules/apis'
-import { useState } from 'react'
+import { useRequestState } from './useRequestState'
 
 export function useEditContact () {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { execute, isSubmitting, error, clearError } = useRequestState()
 
-  async function submit (id: number, draft: ContactDraft) {
-    setIsSubmitting(true)
-    try {
+  async function submit (id: number | null, draft: ContactDraft) {
+    await execute(async () => {
+      if (!id) throw new Error('Missing `contactId`!')
       await updateContact(id, draft)
-    } finally {
-      setIsSubmitting(false)
-    }
+    })
   }
 
   return {
     submit,
     isSubmitting,
+    submitError: error,
+    clearSubmitError: clearError,
   }
 }

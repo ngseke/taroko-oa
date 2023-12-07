@@ -29,11 +29,19 @@ export function EditContactDialog ({
   const [isLoading, setIsLoading] = useState(false)
   const [contactError, setContactError] = useState<string>()
 
+  const { submit, submitError, clearSubmitError, isSubmitting } = useEditContact()
+
+  async function handleSubmit () {
+    await submit(contactId, contactDraft)
+    onClose?.()
+    onSuccess?.()
+  }
+
   useEffect(() => {
     if (!contactId) {
       resetContactDraft()
       setContactError(undefined)
-      setSubmitError(undefined)
+      clearSubmitError()
       return
     }
 
@@ -47,21 +55,7 @@ export function EditContactDialog ({
       }
       setIsLoading(false)
     })()
-  }, [contactId, initiateContactDraft, resetContactDraft])
-
-  const { submit, isSubmitting } = useEditContact()
-  const [submitError, setSubmitError] = useState<string>()
-
-  async function handleSubmit () {
-    try {
-      if (!contactId) throw new Error('Missing `contactId`!')
-      await submit(contactId, contactDraft)
-      onClose?.()
-      onSuccess?.()
-    } catch (err) {
-      setSubmitError(extractErrorMessage(err))
-    }
-  }
+  }, [clearSubmitError, contactId, initiateContactDraft, resetContactDraft])
 
   return (
     <Dialog
@@ -69,8 +63,8 @@ export function EditContactDialog ({
       open={Boolean(contactId)}
       onClose={onClose}
     >
-      {<ErrorMessage>{contactError}</ErrorMessage>}
-      {<ErrorMessage>{submitError}</ErrorMessage>}
+      {<ErrorMessage error={contactError} />}
+      {<ErrorMessage error={submitError} />}
 
       {
         isLoading

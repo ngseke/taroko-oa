@@ -8,7 +8,6 @@ import { ContactCards } from './components/ContactCards'
 import { useDeleteContact } from './hooks/useDeleteContact'
 import { AddContactDialog } from './components/AddContactDialog'
 import { ErrorMessage } from './components/ErrorMessage'
-import { extractErrorMessage } from './modules/extractErrorMessage'
 
 export default function App () {
   const [isAddDialogOpened, setIsAddDialogOpened] = useState(false)
@@ -38,7 +37,7 @@ export default function App () {
 
       <main className="flex flex-col items-center gap-6">
         <h2 className="text-center text-3xl font-bold">Contacts</h2>
-        {<ErrorMessage>{extractErrorMessage(contactsError)}</ErrorMessage>}
+        {<ErrorMessage error={contactsError} />}
         {
           contacts && !contactsError &&
             <ContactCards
