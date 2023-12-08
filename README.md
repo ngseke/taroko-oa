@@ -1,5 +1,9 @@
 # Taroko Contact List
 
+## Slide
+
+https://github.com/ngseke/taroko-oa/blob/main/slides-export.pdf
+
 ## Demo
 
 https://ngseke.github.io/taroko-oa/
